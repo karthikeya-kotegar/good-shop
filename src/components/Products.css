@@ -1,0 +1,5 @@
+.product-image {
+    width: min-content;
+    height: fit-content; /* Adjust the height as needed */
+    object-fit: cover;
+  }
