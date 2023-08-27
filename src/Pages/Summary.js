@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom'
-
+import axios from "axios"
 const TOKEN1 = "IE-NEO"
 const TOKEN2 = "Polygon"
 const TOKEN3 = "Ethereum"
+
+
 
 const SummaryPage = () => {
   const [token, setToken] = useState(TOKEN1);
@@ -19,6 +21,42 @@ const SummaryPage = () => {
     pId,
     pQty
   })
+
+  const apiKey = '_r3XYJ.6Q46qUeshp+Nfp/Yu';
+
+
+  const onPressPay = () => {
+
+
+    var data = JSON.stringify({
+      "invoiceAmount": "120",
+      "currencySymbol": "INR",
+      "successUrl": "http://locahost:3000/success",
+      "failureUrl": "http://locahost:3000/failure"
+    });
+
+    var config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://staging.paytez.io/api/webpayment/create',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': '_r3XYJ.6Q46qUeshp+Nfp/Yu'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        var paymentResponse = response.data
+        window.location.href = paymentResponse.redirectLink;
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
 
   return (
     <div className='container my-3'>
@@ -89,7 +127,7 @@ const SummaryPage = () => {
           </div>
         </div>
         <div className='col-sm-12 col-md-3 h-100 align-items-end'>
-          <button className='btn btn-success' type='button' style={{
+          <button onClick={() => onPressPay()} className='btn btn-success' type='button' style={{
             width: '100%'
           }}>Pay</button>
         </div>
