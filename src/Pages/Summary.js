@@ -22,7 +22,7 @@ const SummaryPage = () => {
     pQty
   })
 
-  const apiKey = '_r3XYJ.6Q46qUeshp+Nfp/Yu';
+  const apiKey = '4Fof0ssAfO9VNruwfQhn.+2';
 
 
   const onPressPay = () => {
